@@ -1,15 +1,10 @@
-gradle-project
-==============
+gradle-project-apt-example
+==========================
 
-basic gradle (2.4) build template for Java 8
+gradle wrapper (2.6) 
 
-Props
-~~~
-guava_version=18.0
-junit_version=4.11
-jsr305_version=1.3.9
-logback_version=1.1.2
-slf4j_api_version=1.7.10
-testng_version=6.8.21
-truth_version=0.25
-~~~
+gradle modules layout - single build.gradle file is used
+
+/annotations -- just annotation class for processor to use
+/application -- annotated classes used for generation
+/processor -- annotation processor executed by compile task in application
