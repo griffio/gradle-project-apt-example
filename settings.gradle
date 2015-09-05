@@ -1,1 +1,1 @@
-include ":annotations", ":processor", ":application"
+include ":annotations", ":application", ":processor"
