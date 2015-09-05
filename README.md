@@ -5,6 +5,8 @@ gradle wrapper (2.6)
 
 gradle modules layout - single build.gradle file is used
 
+Example Annotation Processor that creates some dummy classes.
+
 ~~~
 /annotations -- just annotation class for processor to use
 /application -- annotated classes used for generation
