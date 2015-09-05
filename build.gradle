@@ -1,0 +1,63 @@
+subprojects {
+
+  apply plugin: "java"
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+  }
+}
+
+project(':annotations') {
+  dependencies {
+  }
+}
+
+project(':processor') {
+  dependencies {
+    compile project(':annotations')
+  }
+}
+
+project(':application') {
+
+  dependencies {
+    compile project(':processor')
+  }
+
+  sourceSets {
+    generated.java.srcDirs = ['src/generated/java']
+  }
+
+  task apt(type: JavaCompile, group: 'build', description: 'Invoke annotation processors with main classpath + apt classpath') {
+    source = sourceSets.main.java
+    classpath = configurations.compile
+    options.compilerArgs = [
+        '-XprintProcessorInfo',
+        '-proc:only',
+        '-processor', 'griffio.apt.MyProcessor',
+        '-s', sourceSets.generated.java.srcDirs.iterator().next().toString()
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+  }
+
+  compileJava {
+    description = "description: ignore processor hints, keep all other hints, disable annotation processing for main compile task - e.g autovalue"
+    classpath = configurations.compile
+    dependsOn apt
+    source = sourceSets.main.java + sourceSets.generated.java
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+    options.encoding = "UTF-8"
+    options.compilerArgs = [
+        '-proc:none',
+        '-Xlint:all,-processing'
+    ]
+  }
+
+  clean {
+    delete sourceSets.generated.java.srcDirs
+  }
+}
