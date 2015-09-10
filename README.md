@@ -1,6 +1,8 @@
 gradle-project-apt-example
 ==========================
 
+Uses https://plugins.gradle.org/plugin/com.ewerk.gradle.plugins.annotation-processor
+
 gradle wrapper (2.6) 
 
 gradle modules layout - single build.gradle file is used
